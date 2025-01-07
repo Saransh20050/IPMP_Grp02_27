@@ -1,0 +1,90 @@
+FIND LEVELWISE MAXM ELEMENTS IN B.T:
+
+#include <stdio.h>
+#include<stdlib.h>
+#include<limits.h>
+struct node{
+    int data;
+    struct node*left;
+    struct node*right;
+};
+int front1=-1;
+int front2=-1;
+int rear1=-1;
+int rear2=-1;
+struct node*dq1(struct node*q1[]){
+    struct node*y=q1[front1];
+    if(front1==rear1){front1=-1;rear1=-1;}
+    else{front1++;}
+    return y;
+}
+struct node*dq2(struct node*q2[]){
+    struct node*y=q2[front2];
+    if(front2==rear2){front2=-1;rear2=-1;}
+    else{front2++;}
+    return y;
+}
+void enq1(struct node*q1[],struct node*x){
+    if(front1==-1){front1++;rear1++;}
+    else{
+        rear1++;
+    }
+    q1[rear1]=x;
+}
+void enq2(struct node*q2[],struct node*x){
+    if(front2==-1){front2++;rear2++;}
+    else{
+        rear2++;
+    }
+    q2[rear2]=x;
+}
+int cnt=0;
+struct node*create(){
+    int x,choice;
+    printf("enter node data");
+    scanf("%d",&x);
+    struct node*new=(struct node*)malloc(sizeof(struct node));
+    new->data=x;
+    new->left=NULL;
+    new->right=NULL;
+    printf("does node %d have left node",new->data);
+    scanf("%d",&choice);
+    if(choice==1){new->left=create();}
+    printf("does node %d have right node",new->data);
+    scanf("%d",&choice);
+    if(choice==1){new->right=create();}
+    return new;
+}
+
+int main()
+{    int max,i;
+    struct node*root=create();
+    struct node*q1[100];
+    struct node*q2[100];
+    struct node*y;
+    enq1(q1,root);
+    int a[100];
+    i=0;
+    a[i]=q1[front1]->data;
+    i++;
+    while(front1!=-1||front2!=-1){
+    while(front1!=-1){
+     if(q1[front1]->left!=NULL){enq2(q2,q1[front1]->left);}
+     if(q1[front1]->right!=NULL){enq2(q2,q1[front1]->right);}
+     y=dq1(q1);
+    }
+    max=-99;
+    if(front2!=-1){
+    while(front2!=-1){
+    if(q2[front2]->data>max){max=q2[front2]->data;}
+    enq1(q1,dq2(q2));
+    }
+    a[i]=max;
+    i++;
+    }
+    }
+    for(int j=0;j<=i-1;j++){
+        printf("%d ",a[j]);
+    }
+    return 0;
+}
