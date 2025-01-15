@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Amount</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Transfer Amount</h1>
+
+    <!-- Form to input name and city -->
+    <form id="transferForm">
+        <label for="username">User Name:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <button type="button" onclick="calculate()">Calculate</button>
+    </form>
+
+    <!-- Container to display results -->
+    <div class="container">
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            // Get the values from the form
+            const username = document.getElementById('username').value;
+            const city = document.getElementById('city').value;
+
+            // Check if both fields are filled
+            if (!username || !city) {
+                alert('Please provide both username and city.');
+                return;
+            }
+
+            // Create the data object to be sent in the request
+            const data = {
+                name: username,
+                city: city
+            };
+
+            // Make the AJAX request
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/transferAmount', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            // On successful response
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    const maxCredit = response[0];
+                    const maxDebit = response[1];
+
+                    // Display the results
+                    document.getElementById('result').innerHTML = `
+                        <p><strong>Maximum Credit: </strong>${maxCredit}</p>
+                        <p><strong>Maximum Debit: </strong>${maxDebit}</p>
+                    `;
+                } else {
+                    alert('Error fetching data from the server.');
+                }
+            };
+
+            // Send the request with the data
+            xhr.send(JSON.stringify(data));
+        }
+    </script>
+
+</body>
+</html>
