@@ -1,0 +1,35 @@
+plugins {
+    id 'application'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot Starter for Web API
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Firestore SDK for Java
+    implementation 'com.google.cloud:google-cloud-firestore:3.13.1'
+
+    // Lombok (removes boilerplate code)
+    implementation 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // JSON Processing
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+
+    // Spring Boot Test (for testing APIs)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+application {
+    mainClass = 'org.example.LibraryApplication'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
