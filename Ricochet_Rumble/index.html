@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricochet Rumble</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Ricochet Rumble</h1>
+        
+        <div class="game-controls">
+            <button id="reset-btn">Reset Game</button>
+            <button id="pause-btn">Pause</button>
+            <button id="resume-btn" disabled>Resume</button>
+            <div class="turn-display">
+                <span id="current-player">Player 1's Turn</span>
+                <span id="turn-timer">Time: 30s</span>
+            </div>
+        </div>
+        
+        <div class="game-board" id="board"></div>
+        
+        <div class="game-info">
+            <h3>Pieces:</h3>
+            <ul>
+                <li><strong>Ricochet:</strong> Moves in straight lines, bounces off walls</li>
+                <li><strong>Jumper:</strong> Moves in L-shapes (like knight in chess)</li>
+                <li><strong>Slither:</strong> Moves diagonally, can slide multiple squares</li>
+                <li><strong>Pounder:</strong> Moves orthogonally, can crush adjacent pieces</li>
+                <li><strong>Teleport:</strong> Can teleport to any empty square</li>
+            </ul>
+            <div id="selected-piece-info"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
